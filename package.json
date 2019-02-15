@@ -1,0 +1,21 @@
+{
+  "name": "blind-auction-site",
+  "version": "1.0.0",
+  "description": "A simplified version of blind auction site where bidders can't see others bidding",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Sagar Kharabe",
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  },
+  "dependencies": {
+    "connect-flash": "^0.1.1",
+    "express": "^4.16.4",
+    "express-handlebars": "^3.0.0",
+    "mongoose": "^5.4.12"
+  }
+}
