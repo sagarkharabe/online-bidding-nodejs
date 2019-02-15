@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const router = express();
 const User = mongoose.model("Users");
-
+const passport = require("passport");
 router
   .route("/register")
   .get((req, res) => {
@@ -23,15 +23,11 @@ router
   .get((req, res) => {
     res.send("Login page");
   })
-  .post((req, res) => {
-    const newUser = new User({
-      username: "sagar",
-      email: "sagar@yahoo.in",
-      password: "sagar"
-    });
-    newUser.save(err => {
-      if (err.name == "ValidationError") console.log(err);
-    });
-  });
+  .post((req, res, next) =>
+    passport.authenticate("local", {
+      successRedirect: "/",
+      failureRedirect: "/login"
+    })(req, res, next)
+  );
 
 module.exports = router;

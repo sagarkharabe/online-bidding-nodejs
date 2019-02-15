@@ -16,7 +16,9 @@ const userSchema = new mongoose.Schema({
     required: true
   }
 });
-
+userSchema.methods.validPassword = function(password) {
+  return this.password === password;
+};
 userSchema.plugin(uniqueValidator);
 const userModel = mongoose.model("Users", userSchema);
 module.exports = userModel;
