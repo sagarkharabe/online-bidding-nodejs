@@ -10,7 +10,12 @@ router.route("/add").get(ensureAuthenticated, (req, res) => {
 router
   .route("/")
   .get((req, res) => {
-    res.render("items/index");
+    Item.find().then(items => {
+      console.log(items);
+      res.render("items/index", {
+        items: items
+      });
+    });
   })
 
   .post(ensureAuthenticated, (req, res) => {

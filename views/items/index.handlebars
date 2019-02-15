@@ -1,1 +1,26 @@
-<h2>View all stories</h2>
+<h2>All Items</h2>
+
+<div class="row">
+
+  {{#each items}}
+  <div class="col s12 m4">
+    <div class="card">
+      <div class="card-image">
+        <a href="/stories/edit/{{id}}" class="btn-floating halfway-fab red">
+          <i class="fa fa-pencil"></i>
+        </a>
+        <img src="{{image}}">
+        <span class="card-title dash-status">{{name}}</span>
+      </div>
+      <div class="card-content">
+        <p> {{{truncate description 120}}}</p>
+      </div>
+      <div class="card-action">
+        <a href="/items/show/{{id}}">This is a link</a>
+      </div>
+    </div>
+  </div>
+  {{else}}
+  <p>No stories to show.</p>
+  {{/each}}
+</div>

@@ -7,7 +7,7 @@ const { ensureAuthenticated } = require("../helpers/auth");
 router
   .route("/register")
   .get((req, res) => {
-    res.send("register page");
+    res.render("users/register");
   })
   .post((req, res) => {
     const newUser = new User({
@@ -16,7 +16,10 @@ router
       password: req.body.password
     });
     newUser.save(err => {
-      if (err.name == "ValidationError") console.log(err);
+      if (err && err.name == "ValidationError") {
+        console.log(err);
+        res.redirect("/users/register");
+      } else res.redirect("/users/login");
     });
   });
 router

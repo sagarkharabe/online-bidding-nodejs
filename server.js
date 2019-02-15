@@ -4,15 +4,17 @@ const mongoURI = require("./config/keys");
 const passport = require("passport");
 const bodyParser = require("body-parser");
 const session = require("express-session");
+const methodOverride = require("method-override");
 const app = express();
 const exphbs = require("express-handlebars");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 require("./models");
+const flash = require("connect-flash");
 const users = require("./routes/users");
 const items = require("./routes/items");
 const index = require("./routes/index");
-
+const { truncate, formatDate, select } = require("./helpers/hbs");
 require("./config/passport")(passport);
 
 mongoose.Promise = global.Promise;
@@ -28,11 +30,11 @@ mongoose
 app.engine(
   "handlebars",
   exphbs({
-    // helpers: {
-    //   truncate: truncate,
-    //   formatDate: formatDate,
-    //   select: select
-    // },
+    helpers: {
+      truncate: truncate,
+      formatDate: formatDate,
+      select: select
+    },
     defaultLayout: "main"
   })
 );
@@ -55,11 +57,15 @@ app.use(
 app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
-app.use((req, res, next) => {
+app.use(function(req, res, next) {
+  // res.locals.success_msg = req.flash("success_msg");
+  // res.locals.error_msg = req.flash("error_msg");
+  // res.locals.error = req.flash("error");
   res.locals.user = req.user || null;
   next();
 });
 
+app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/users", users);
 app.use("/items", items);
