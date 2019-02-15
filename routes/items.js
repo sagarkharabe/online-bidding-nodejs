@@ -2,23 +2,19 @@ const express = require("express");
 const mongoose = require("mongoose");
 const router = express();
 const Item = mongoose.model("Items");
+const { ensureAuthenticated } = require("../helpers/auth");
+router.route("/add").get(ensureAuthenticated, (req, res) => {
+  res.render("items/add");
+});
 
 router
-  .route("/add")
+  .route("/")
   .get((req, res) => {
-    res.send("add Item for bidding form");
+    res.render("items/index");
   })
-  .post((req, res) => {
-    let x = new Date(
-      req.body.bid_year,
-      req.body.bid_month,
-      req.body.bid_date,
-      req.body.bid_hours,
-      0,
-      0,
-      0
-    );
 
+  .post(ensureAuthenticated, (req, res) => {
+    let x = new Date(req.body.bid_date);
     const newItem = new Item({
       name: req.body.name,
       image: req.body.image,
@@ -34,7 +30,7 @@ router
     res.redirect(`items/show/${req.body.id}`);
   });
 
-router.route("/show/:id").get((req, res) => {
+router.route("/show/:id").get(ensureAuthenticated, (req, res) => {
   res.send(`show a item  ${req.params.id}`);
 });
 

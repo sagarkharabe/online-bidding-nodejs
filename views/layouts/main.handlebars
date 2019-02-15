@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
   <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
     crossorigin="anonymous">
 
@@ -14,6 +15,7 @@
 </head>
 
 <body>
+  {{> _header}}
   <main>
     <div class="container">
       {{{body}}}
@@ -24,6 +26,16 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 
-  <script src="https://cdn.ckeditor.com/4.11.2/standard/ckeditor.js" </body>
+  <script src="https://cdn.ckeditor.com/4.11.2/standard/ckeditor.js"></script>
+  <script>
+    $(document).ready(() => {
+      $('.button-collapse').sideNav();
+    });
+    $('select').material_select();
+    CKEDITOR.replace('description', {
+      plugins: 'wysiwygarea,toolbar,basicstyles,link'
+    });
+  </script>
+</body>
 
-</html >
+</html>

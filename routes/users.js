@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const router = express();
 const User = mongoose.model("Users");
 const passport = require("passport");
+const { ensureAuthenticated } = require("../helpers/auth");
 router
   .route("/register")
   .get((req, res) => {
@@ -21,11 +22,11 @@ router
 router
   .route("/login")
   .get((req, res) => {
-    res.send("Login page");
+    res.render("users/login");
   })
   .post((req, res, next) =>
     passport.authenticate("local", {
-      successRedirect: "/",
+      successRedirect: "/dashboard",
       failureRedirect: "/login"
     })(req, res, next)
   );

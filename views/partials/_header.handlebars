@@ -1,7 +1,7 @@
 <nav class="grey darken-3">
   <div class="container">
     <div class="nav-wrapper">
-      <a href="/" class="brand-logo center">StoryBooks</a>
+      <a href="/" class="brand-logo center">Online Bidding</a>
       <a href="#" data-activates="main-menu" class="button-collapse show-on-large">
         <i class="fa fa-bars"></i>
       </a>
@@ -12,27 +12,28 @@
           </a>
         </li>
         <li>
-          <a href="/auth/logout">Logout
+          <a href="/users/logout">Logout
           </a>
         </li>
         {{else}}
         <li>
-          <a href="/stories">
-            <i class="fa fa-book"></i> Public Stories</a>
+          <a href="/items">
+            <i class="fa fa-shopping-cart"></i> Bid Items</a>
         </li> {{/if}}
       </ul>
       <ul class="side-nav" id="main-menu">
 
         {{#if user}} {{else}}
         <li>
-          <a href="/auth/google" class="red btn darken-1">
-            <i class="fa fa-google left"> </i>Login with Google</a>
+          <a href="/users/login" class="blue btn darken-1">
+            <i class="fa fa-sign-in left"> </i>
+            </i>Login with Email</a>
         </li>
 
         {{/if}}
         <li>
-          <a href="/stories">
-            <i class="fa fa-book"></i>Public Stories</a>
+          <a href="/items">
+            <i class="fa fa-book"></i>Bid Items</a>
         </li>
         {{#if user}}
         <li class="divider"></li>
@@ -41,11 +42,11 @@
             <i class="fa fa-cog"></i>Dashboard</a>
         </li>
         <li>
-          <a href="/stories/my">
+          <a href="/items/my">
             <i class="fa fa-user"></i>My Stories</a>
         </li>
         <li>
-          <a href="/auth/logout">
+          <a href="/users/logout">
             <i class="fa fa-sign-out"></i>Logout</a>
         </li>
         {{/if}}

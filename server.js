@@ -55,9 +55,11 @@ app.use(
 app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
-app.get("/", (req, res) => {
-  res.send("Welcome");
+app.use((req, res, next) => {
+  res.locals.user = req.user || null;
+  next();
 });
+
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/users", users);
 app.use("/items", items);

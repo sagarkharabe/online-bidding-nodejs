@@ -1,0 +1,45 @@
+<h3>
+  <span style="color:red">Add </span>Item to Bid</h3>
+
+
+<div class="row">
+  <form action="/items" class="col s12" method="POST">
+    <div class="row">
+      <div class="input-field">
+        <input type="text" name="name">
+        <label for="name">Name</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field">
+        <select name="status">
+          <option value="active" selected>Active</option>
+          <option value="deactive">Deactive</option>
+        </select>
+        <label for="status">Status</label>
+      </div>
+    </div>
+
+    <div class="row input-field">
+      <p>
+        <label for="image">Image URL</label>
+        <input type="text" name="image">
+      </p>
+    </div>
+    <div class="row">
+      <label for="bid_date">Bid Time</label>
+      <div class="input-field">
+        <input type="date" name="bid_date">
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field">
+        <h5>Describe your Item</h5>
+        <textarea name="description" class="materialize-textarea" cols="30" rows="6"></textarea>
+      </div>
+    </div>
+
+    <input type="submit" value="Save" class="btn">
+  </form>
+</div>
