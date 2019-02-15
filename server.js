@@ -5,9 +5,13 @@ const passport = require("passport");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const app = express();
-
+const exphbs = require("express-handlebars");
+const path = require("path");
+const cookieParser = require("cookie-parser");
 require("./models");
 const users = require("./routes/users");
+const items = require("./routes/items");
+const index = require("./routes/index");
 
 require("./config/passport")(passport);
 
@@ -20,6 +24,21 @@ mongoose
     console.log("Connected to Mlab..");
   })
   .catch(err => console.log(err));
+
+app.engine(
+  "handlebars",
+  exphbs({
+    // helpers: {
+    //   truncate: truncate,
+    //   formatDate: formatDate,
+    //   select: select
+    // },
+    defaultLayout: "main"
+  })
+);
+app.set("view engine", "handlebars");
+
+app.use(cookieParser());
 
 app.use(
   session({
@@ -39,9 +58,10 @@ app.use(passport.session());
 app.get("/", (req, res) => {
   res.send("Welcome");
 });
-
+app.use(express.static(path.join(__dirname, "public")));
 app.use("/users", users);
-
+app.use("/items", items);
+app.use("/", index);
 const port = process.env.PORT || 5000;
 
 app.listen(port, () => {

@@ -9,7 +9,7 @@ const itemSchema = new mongoose.Schema({
     type: String,
     require: true
   },
-  description: { String, require: true },
+  description: { type: String, require: true },
   user: { type: Schema.Types.ObjectId, ref: "Users" },
   status: String,
   bid_time: {
