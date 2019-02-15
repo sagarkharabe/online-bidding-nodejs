@@ -29,5 +29,8 @@ router
       failureRedirect: "/login"
     })(req, res, next)
   );
-
+router.get("/logout", (req, res) => {
+  req.logout();
+  res.redirect("/");
+});
 module.exports = router;
