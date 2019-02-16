@@ -23,5 +23,9 @@ module.exports = {
   },
   stripTags: function(input) {
     return input.replace(/<(?:.|\n)*?>/gm, "");
+  },
+  ifCon: function(id1, id2) {
+    if (id1 === id2) return true;
+    else return false;
   }
 };
