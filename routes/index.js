@@ -9,6 +9,7 @@ router.route("/").get((req, res) => {
 router.route("/about").get((req, res) => {
   res.render("index/about");
 });
+
 router.route("/dashboard").get(ensureAuthenticated, (req, res) => {
   res.render("index/dashboard");
 });

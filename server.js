@@ -14,7 +14,7 @@ const flash = require("connect-flash");
 const users = require("./routes/users");
 const items = require("./routes/items");
 const index = require("./routes/index");
-const { truncate, formatDate, select } = require("./helpers/hbs");
+const { truncate, formatDate, select, stripTags } = require("./helpers/hbs");
 require("./config/passport")(passport);
 
 mongoose.Promise = global.Promise;
@@ -33,7 +33,8 @@ app.engine(
     helpers: {
       truncate: truncate,
       formatDate: formatDate,
-      select: select
+      select: select,
+      stripTags: stripTags
     },
     defaultLayout: "main"
   })

@@ -20,5 +20,8 @@ module.exports = {
         new RegExp(">" + selected + "</options>"),
         'selected="selected"$&'
       );
+  },
+  stripTags: function(input) {
+    return input.replace(/<(?:.|\n)*?>/gm, "");
   }
 };

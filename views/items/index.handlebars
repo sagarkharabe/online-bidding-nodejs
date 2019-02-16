@@ -13,10 +13,10 @@
         <span class="card-title dash-status">{{name}}</span>
       </div>
       <div class="card-content">
-        <p> {{{truncate description 120}}}</p>
+        <p class="story-text"> {{stripTags (truncate description 120)}}</p>
       </div>
       <div class="card-action">
-        <a href="/items/show/{{id}}">This is a link</a>
+        <a href="/items/show/{{id}}">More About it</a>
       </div>
     </div>
   </div>
