@@ -25,7 +25,36 @@ footer {
   display: inline;
 }
 .alert {
+  margin-top: 3px;
   padding: 20px;
   color: white;
   font-size: 120%;
+  border-radius: 3px;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+.card-image {
+  height: 120px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #424242;
 }

@@ -15,10 +15,10 @@
 </head>
 
 <body>
-  {{> _header}} {{> _msg}}
+  {{> _header}} {{#if user}} {{> _add_btn}} {{/if}}
   <main>
     <div class="container">
-      {{{body}}}
+      {{> _msg}} {{{body}}}
     </div>
   </main>
 

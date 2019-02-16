@@ -6,12 +6,10 @@ const { ensureAuthenticated } = require("../helpers/auth");
 router.route("/add").get(ensureAuthenticated, (req, res) => {
   res.render("items/add");
 });
-
 router
   .route("/")
   .get((req, res) => {
     Item.find().then(items => {
-      console.log(items);
       res.render("items/index", {
         items: items
       });
@@ -36,7 +34,20 @@ router
   });
 
 router.route("/show/:id").get(ensureAuthenticated, (req, res) => {
-  res.send(`show a item  ${req.params.id}`);
+  Item.findById(req.params.id).then(item => {
+    console.log(item);
+    res.send(`show a item  ${req.params.id}`);
+  });
+});
+
+router.route("/my").get(ensureAuthenticated, (req, res) => {
+  Item.find({ user: req.user.id })
+    .sort({ bid_time: "desc" })
+    .then(items => {
+      res.render("items/my", {
+        items: items
+      });
+    });
 });
 
 module.exports = router;

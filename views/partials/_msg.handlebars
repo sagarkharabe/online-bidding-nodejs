@@ -1,9 +1,11 @@
  {{#if error_msg}}
-<div class="alert center red">
+<div class="alert center red lighten-1">
+  <span class="closebtn btn-flat" onclick="this.parentElement.style.display='none';">&times;</span>
   {{error_msg}}
 </div>
 {{/if}} {{#if success_msg}}
-<div class="center alert green">
+<div class="center alert green lighten-1">
+  <span class="closebtn btn-flat" onclick="this.parentElement.style.display='none';">&times;</span>
   {{success_msg}}
 </div>
 {{/if}}
