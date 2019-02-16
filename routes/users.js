@@ -17,11 +17,21 @@ router
       password: req.body.password
     });
     newUser.save(err => {
-      if (err && err.name == "ValidationError") {
-        console.log(err);
+      if (err) {
+        req.flash("error_msg", "Sorry, that Username is taken");
         res.redirect("/users/register");
-      } else res.redirect("/users/login");
+      }
+      if (err === null) {
+        req.flash("success_msg", "Congratulation, You can now Login");
+        res.redirect("/users/login");
+      }
     });
+
+    // else {
+    //   res.redirect("/users/login");
+    //   req.flash("success_msg", "Congratulation, You can now Login");
+    //   res.redirect("/users/login");
+    // }
   });
 router
   .route("/login")
@@ -31,12 +41,14 @@ router
   .post((req, res, next) => {
     passport.authenticate("local", {
       successRedirect: "/dashboard",
-      failureRedirect: "/login"
+      failureRedirect: "/users/login",
+      failureFlash: true
     })(req, res, next);
   });
 
-router.get("/logout", (req, res) => {
+router.get("/logout", ensureAuthenticated, (req, res) => {
   req.logout();
+  req.flash("success_msg", "You are logged out");
   res.redirect("/");
 });
 module.exports = router;

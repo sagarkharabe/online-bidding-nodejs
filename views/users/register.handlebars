@@ -1,6 +1,6 @@
-<h2 class="text-center">Register form</h2>
+<h2 class="center">Register form</h2>
 <div class="row">
-  <form method="POST" action="/user/register" class="col s12">
+  <form method="post" action="/users/register" class="col s12">
     <div class="row">
       <div class="input-field col s12">
         <input name="username" id="username" type="text" class="validate">
@@ -15,11 +15,11 @@
     </div>
     <div class="row">
       <div class="input-field col s12">
-        <input class="password" id="password" type="password" class="validate">
+        <input name="password" id="password" type="password" class="validate">
         <label for="password">Password</label>
       </div>
     </div>
-    <button class="btn-large waves-effect waves-light" type="submit" name="action">Sign Up
+    <button class="btn-large waves-effect waves-light" type="submit">Sign Up
     </button>
   </form>
 </div>

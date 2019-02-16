@@ -8,7 +8,7 @@
       <ul class="right hide-on-small-only">
         {{#if user}}
         <li>
-          <a href="/dashboard">Welcome {{user.firstName}}
+          <a href="/dashboard">Welcome {{user.username}}
           </a>
         </li>
         <li>
@@ -27,7 +27,7 @@
         <li>
           <a href="/users/login" class="blue btn darken-1">
             <i class="fa fa-sign-in left"> </i>
-            </i>Login with Email</a>
+            Login with Email</a>
         </li>
 
         {{/if}}
@@ -43,7 +43,7 @@
         </li>
         <li>
           <a href="/items/my">
-            <i class="fa fa-user"></i>My Stories</a>
+            <i class="fa fa-user"></i>My Items</a>
         </li>
         <li>
           <a href="/users/logout">
