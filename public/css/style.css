@@ -46,8 +46,16 @@ footer {
 .closebtn:hover {
   color: black;
 }
+.card-title {
+  margin: auto;
+  height: 40px;
+}
 .card-image {
-  height: 120px;
+  height: 150px;
+}
+.card-image img {
+  max-width: 100%;
+  max-height: 100%;
 }
 
 h1,

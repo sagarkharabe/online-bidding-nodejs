@@ -5,13 +5,14 @@
   {{#each items}}
   <div class="col s12 m4">
     <div class="card hoverable">
+      <a href="/stories/edit/{{id}}" class="btn-floating halfway-fab red">
+        <i class="fa fa-pencil"></i>
+      </a>
       <div class="card-image">
-        <a href="/stories/edit/{{id}}" class="btn-floating halfway-fab red">
-          <i class="fa fa-pencil"></i>
-        </a>
+
         <img src="{{image}}">
-        <span class="card-title dash-status">{{name}}</span>
       </div>
+      <div class="card-title center"><span class="card-title dash-status">{{truncate name 15}}</span></div>
       <div class="card-content">
         <p class="story-text"> {{stripTags (truncate description 120)}}</p>
       </div>

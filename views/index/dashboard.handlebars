@@ -1,1 +1,38 @@
-<h2>User Dashboard</h2>
+<h2>Welcome {{user.username}}</h2>
+<h4>Your Items</h4>
+{{#if items}}
+<table class="stripped">
+  <thead>
+    <tr>
+      <th>Item </th>
+      <th>Bid Date</th>
+      <th>Status</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each items}}
+    <tr>
+      <td>
+        <a href="/items/show/{{id}}">{{name}}</a>
+      </td>
+      <td>{{formatDate bid_time 'MMMM Do YYYY,h:mm:ss a'}}</td>
+      <td>
+        <span class="dash-status">{{status}}</span>
+      </td>
+      <td>
+        <a class=" btn left-align" href="/items/edit/{{id}}">
+          <i class="fa fa-pencil"></i> Edit
+        </a>
+        <form action="/items" method="POST" id="delete-form">
+          <button type='submit' class="btn red">
+            <i class="fa fa-remove"></i> Delete</button>
+        </form>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+{{else}}
+<p>You have no items..</p>
+{{/if}}

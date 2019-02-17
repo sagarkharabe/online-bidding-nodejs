@@ -19,7 +19,8 @@ const {
   formatDate,
   select,
   stripTags,
-  ifCon
+  ifCon,
+  editIcon
 } = require("./helpers/hbs");
 require("./config/passport")(passport);
 
@@ -41,7 +42,8 @@ app.engine(
       formatDate: formatDate,
       select: select,
       stripTags: stripTags,
-      ifCon: ifCon
+      ifCon: ifCon,
+      editIcon: editIcon
     },
     defaultLayout: "main"
   })

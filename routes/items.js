@@ -33,11 +33,14 @@ router
     res.redirect(`items/show/${req.body.id}`);
   });
 
-router.route("/show/:id").get(ensureAuthenticated, (req, res) => {
-  Item.findById(req.params.id).then(item => {
-    console.log(item);
-    res.send(`show a item  ${req.params.id}`);
-  });
+router.route("/show/:id").get((req, res) => {
+  Item.findById(req.params.id)
+    .populate("user")
+    .then(item => {
+      res.render("items/show", {
+        item: item
+      });
+    });
 });
 
 router.route("/my").get(ensureAuthenticated, (req, res) => {
@@ -49,5 +52,17 @@ router.route("/my").get(ensureAuthenticated, (req, res) => {
       });
     });
 });
-
+router.route("/addbid/:id").post((req, res) => {
+  console.log(req.body);
+  Item.findById(req.params.id).then(item => {
+    const newBid = {
+      amount: req.body.amount,
+      user: req.user.id
+    };
+    item.bids.unshift(newBid);
+    item.save();
+    req.flash("success_msg", "Your Bid was successfully placed");
+    res.redirect(`/items/show/${req.params.id}`);
+  });
+});
 module.exports = router;

@@ -1,0 +1,68 @@
+<div class="row">
+  <div class="col s12 m7 l7">
+    <h3>{{item.name}}
+      <small>{{{editIcon item.user.id user.id item.id false}}}</small>
+    </h3>
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title"><strong>Bid Time : </strong>
+          {{formatDate item.bid_time 'MMMM Do YYYY h:mm:ss a' }}</span><br>
+        <div class="card-image">
+          <img src="{{item.image}}" alt="/">
+        </div>
+        <br>{{{item.description}}}
+      </div>
+    </div>
+
+    {{#if (ifCon item.status 'active')}}
+    <div class="card">
+      <div class="card-content">
+
+        {{#if user}}
+        {{#if (ifCon item.user user.id)}}
+        <span class="card-title">All bids</span>
+        {{else}}
+        <span class="card-title">Let's Bid</span>
+        <form action="/items/addbid/{{item.id}}" method="post">
+          <div class="input-field"><label for="amount">
+              Enter bidding amount
+            </label>
+            <input type="text" name="amount" id="amount">
+            <input class="btn-large" type="submit" value="Place Bid">
+          </div>
+        </form>
+        {{/if}}
+        {{#if (ifCon item.user user.id)}}
+        {{#each item.bids}}
+        <div class="card">
+          <div class="card-content">
+            <h5>Amount : {{amount}}</h5>
+          </div>
+        </div>
+        {{/each}}
+        {{/if}}
+        {{else}}
+        <p>Please <a href="/users/login">Log In </a>to Bid on Items</p>
+        {{/if}}
+      </div>
+    </div>
+    {{/if}}
+  </div>
+
+  <div class="col s12 m4 right">
+    <div class="card center-align">
+      <div class="card-content">
+        <h3>{{item.user.username}}</h3>
+
+        <img
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKqNC2McBbNvkH3ahDf5MJVtLceJssQU78qVEhnGgk5CEqx3xk"
+          alt="" class=" circle responsive-img">
+      </div>
+
+      <div class="card-action">
+        <a href="/items/user/{{item.user}}">More from {{item.user.username}}</a>
+      </div>
+    </div>
+  </div>
+
+</div>

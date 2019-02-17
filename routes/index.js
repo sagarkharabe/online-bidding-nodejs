@@ -11,6 +11,11 @@ router.route("/about").get((req, res) => {
 });
 
 router.route("/dashboard").get(ensureAuthenticated, (req, res) => {
-  res.render("index/dashboard");
+  Item.find({ user: req.user.id }).then(items => {
+    console.log(items);
+    res.render("index/dashboard", {
+      items: items
+    });
+  });
 });
 module.exports = router;
