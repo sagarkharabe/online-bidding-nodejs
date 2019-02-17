@@ -19,7 +19,7 @@
       <div class="card-content">
 
         {{#if user}}
-        {{#if (ifCon item.user user.id)}}
+        {{#if (ifCon item.user.id user.id)}}
         <span class="card-title">All bids</span>
         {{else}}
         <span class="card-title">Let's Bid</span>
@@ -32,13 +32,17 @@
           </div>
         </form>
         {{/if}}
-        {{#if (ifCon item.user user.id)}}
+        {{#if (ifCon item.user.id user.id)}}
         {{#each item.bids}}
         <div class="card">
           <div class="card-content">
+            <small>Posted by</small> <strong> {{user.username}}</strong>
             <h5>Amount : {{amount}}</h5>
+
           </div>
         </div>
+        {{else}}
+        <p>Currently, no Bids to show, please come back later.</p>
         {{/each}}
         {{/if}}
         {{else}}
@@ -60,7 +64,7 @@
       </div>
 
       <div class="card-action">
-        <a href="/items/user/{{item.user}}">More from {{item.user.username}}</a>
+        <a href="/items/user/{{item.user.id}}">More from {{item.user.username}}</a>
       </div>
     </div>
   </div>

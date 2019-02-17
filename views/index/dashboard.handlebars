@@ -1,7 +1,7 @@
 <h2>Welcome {{user.username}}</h2>
 <h4>Your Items</h4>
 {{#if items}}
-<table class="stripped">
+<table class="striped">
   <thead>
     <tr>
       <th>Item </th>
@@ -24,7 +24,8 @@
         <a class=" btn left-align" href="/items/edit/{{id}}">
           <i class="fa fa-pencil"></i> Edit
         </a>
-        <form action="/items" method="POST" id="delete-form">
+        <form action="/items/{{id}}?_method=DELETE" method="POST" id="delete-form">
+          <input type="hidden" name="_method" value="DELETE">
           <button type='submit' class="btn red">
             <i class="fa fa-remove"></i> Delete</button>
         </form>

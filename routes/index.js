@@ -18,4 +18,8 @@ router.route("/dashboard").get(ensureAuthenticated, (req, res) => {
     });
   });
 });
+
+router.route("/about").get((req, res) => {
+  res.send("index/about");
+});
 module.exports = router;

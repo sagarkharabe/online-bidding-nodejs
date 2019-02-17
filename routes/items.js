@@ -18,6 +18,8 @@ router
 
   .post(ensureAuthenticated, (req, res) => {
     let x = new Date(req.body.bid_date);
+    console.log(req.body);
+    console.log(x);
     const newItem = new Item({
       name: req.body.name,
       image: req.body.image,
@@ -30,12 +32,17 @@ router
       console.log(err);
     });
 
+    req.flash(
+      "success_msg",
+      "Congrats, new Item Posted. Come back in a while to see all bids."
+    );
     res.redirect(`items/show/${req.body.id}`);
   });
 
 router.route("/show/:id").get((req, res) => {
   Item.findById(req.params.id)
     .populate("user")
+    .populate("bids.user")
     .then(item => {
       res.render("items/show", {
         item: item
@@ -52,8 +59,7 @@ router.route("/my").get(ensureAuthenticated, (req, res) => {
       });
     });
 });
-router.route("/addbid/:id").post((req, res) => {
-  console.log(req.body);
+router.route("/addbid/:id").post(ensureAuthenticated, (req, res) => {
   Item.findById(req.params.id).then(item => {
     const newBid = {
       amount: req.body.amount,
@@ -63,6 +69,21 @@ router.route("/addbid/:id").post((req, res) => {
     item.save();
     req.flash("success_msg", "Your Bid was successfully placed");
     res.redirect(`/items/show/${req.params.id}`);
+  });
+});
+router.get("/user/:userId", (req, res) => {
+  Item.find({ user: req.params.userId })
+    .populate("user")
+    .then(items => {
+      res.render("items/index", {
+        items: items
+      });
+    });
+});
+router.route("/:id").delete(ensureAuthenticated, (req, res) => {
+  Item.remove({ _id: req.params.id }).then(() => {
+    req.flash("success_msg", "Item Successfully deleted.");
+    res.redirect("/dashboard");
   });
 });
 module.exports = router;
