@@ -1,0 +1,48 @@
+<h3>
+  <span style="color:red">Edit </span>Item</h3>
+
+
+<div class="row">
+  <form action="/items/{{item.id}}?_method=PUT" class="col s12" method="POST">
+    <input type="hidden" name="_method" value="PUT">
+    <div class="row">
+      <div class="input-field">
+        <input type="text" name="name" value="{{item.name}}">
+        <label for="name">Name</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field">
+        <select name="status">
+          {{#select story.status}}
+          <option value="active" selected>Active</option>
+          <option value="deactive">Deactive</option>
+          {{/select}}
+        </select>
+        <label for="status">Status</label>
+      </div>
+    </div>
+
+    <div class="row input-field">
+      <p>
+        <label for="image">Image URL</label>
+        <input type="text" name="image" value="{{item.image}}">
+      </p>
+    </div>
+    <div class="row">
+      <label for="bid_date">Bid Time</label>
+      <div class="input-field">
+        <input type="date" name="bid_date" value="item.bid_date">
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field">
+        <h5>Describe your Item</h5>
+        <textarea name="description" class="materialize-textarea" cols="30" rows="6">{{item.description}}</textarea>
+      </div>
+    </div>
+
+    <input type="submit" value="Save" class="btn">
+  </form>
+</div>

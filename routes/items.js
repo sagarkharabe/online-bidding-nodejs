@@ -18,8 +18,6 @@ router
 
   .post(ensureAuthenticated, (req, res) => {
     let x = new Date(req.body.bid_date);
-    console.log(req.body);
-    console.log(x);
     const newItem = new Item({
       name: req.body.name,
       image: req.body.image,
@@ -28,15 +26,13 @@ router
       status: req.body.status,
       bid_time: x
     });
-    newItem.save(err => {
-      console.log(err);
+    newItem.save().then(newItem => {
+      req.flash(
+        "success_msg",
+        "Congrats, new Item Posted. Come back in a while to see all bids."
+      );
+      res.redirect(`items/show/${newItem._id}`);
     });
-
-    req.flash(
-      "success_msg",
-      "Congrats, new Item Posted. Come back in a while to see all bids."
-    );
-    res.redirect(`items/show/${req.body.id}`);
   });
 
 router.route("/show/:id").get((req, res) => {
@@ -48,6 +44,19 @@ router.route("/show/:id").get((req, res) => {
         item: item
       });
     });
+});
+
+router.route("/edit/:id").get(ensureAuthenticated, (req, res) => {
+  Item.findOne({ _id: req.params.id }).then(Item => {
+    if (req.user.id == Item.user) {
+      res.render("items/edit", {
+        item: Item
+      });
+    } else {
+      req.flash("error_msg", "Not Authorized");
+      res.redirect("/dashboard");
+    }
+  });
 });
 
 router.route("/my").get(ensureAuthenticated, (req, res) => {
@@ -80,10 +89,29 @@ router.get("/user/:userId", (req, res) => {
       });
     });
 });
-router.route("/:id").delete(ensureAuthenticated, (req, res) => {
-  Item.remove({ _id: req.params.id }).then(() => {
-    req.flash("success_msg", "Item Successfully deleted.");
-    res.redirect("/dashboard");
+router
+  .route("/:id")
+  .delete(ensureAuthenticated, (req, res) => {
+    Item.remove({ _id: req.params.id }).then(() => {
+      req.flash("success_msg", "Item Successfully deleted.");
+      res.redirect("/dashboard");
+    });
+  })
+  .put(ensureAuthenticated, (req, res) => {
+    Item.findById(req.params.id).then(item => {
+      let x = new Date(req.body.bid_date);
+
+      (item.name = req.body.name),
+        (item.image = req.body.image),
+        (item.description = req.body.description),
+        (item.user = req.user.id),
+        (item.status = req.body.status),
+        (item.bid_time = x);
+
+      item.save().then(item => {
+        req.flash("success_msg", "Changes saved successfully");
+        res.redirect(`/items/show/${item._id}`);
+      });
+    });
   });
-});
 module.exports = router;

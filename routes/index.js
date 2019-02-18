@@ -12,7 +12,6 @@ router.route("/about").get((req, res) => {
 
 router.route("/dashboard").get(ensureAuthenticated, (req, res) => {
   Item.find({ user: req.user.id }).then(items => {
-    console.log(items);
     res.render("index/dashboard", {
       items: items
     });
